@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="500" rx="14" fill="#ffffff"/>
+  <text x="550" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Where a group-call user can be, and what moves them</text>
+
+  <!-- states -->
+  <g font-size="14" font-weight="700" text-anchor="middle">
+    <rect x="30" y="200" width="150" height="64" rx="32" fill="#f1f5f9" stroke="#94a3b8"/>
+    <text x="105" y="229" fill="#334155">not in room</text>
+    <text x="105" y="247" font-size="11" font-weight="400" fill="#64748b">(socket connected)</text>
+
+    <rect x="300" y="80" width="190" height="64" rx="12" fill="#fef3c7" stroke="#d97706"/>
+    <text x="395" y="108" fill="#92400e">waitingRoom[]</text>
+    <text x="395" y="127" font-size="11" font-weight="400" fill="#92400e">sees "Waiting to be admitted"</text>
+
+    <rect x="610" y="200" width="200" height="64" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="710" y="228" fill="#166534">participants[]</text>
+    <text x="710" y="247" font-size="11" font-weight="400" fill="#166534">in the call (admin is one of them)</text>
+
+    <rect x="610" y="380" width="200" height="64" rx="12" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="710" y="408" fill="#991b1b">reconnectTimers[key]</text>
+    <text x="710" y="427" font-size="11" font-weight="400" fill="#991b1b">key = "roomId:userName", 12 s</text>
+  </g>
+
+  <!-- transitions -->
+  <g font-size="12" fill="#334155">
+    <!-- create room -->
+    <path d="M180 222 C 380 222, 440 222, 606 226" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+    <text x="300" y="214">join-group-room, room is new</text>
+    <text x="300" y="240" fill="#64748b">→ becomes admin · emits group-joined</text>
+
+    <!-- to waiting -->
+    <path d="M140 200 C 170 120, 230 112, 296 112" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#a)"/>
+    <text x="40" y="120">join-group-room,</text>
+    <text x="40" y="136">room exists &amp; &lt; 10</text>
+    <text x="40" y="152" fill="#64748b">→ admin gets user-waiting</text>
+
+    <!-- admit -->
+    <path d="M490 112 C 600 112, 690 130, 705 196" fill="none" stroke="#16a34a" stroke-width="1.8" marker-end="url(#a)"/>
+    <text x="560" y="96" fill="#166534">admit-user (admin only)</text>
+    <text x="560" y="112" fill="#64748b">→ group-admitted + group-new-peer</text>
+
+    <!-- reject -->
+    <path d="M330 144 C 290 190, 230 200, 184 212" fill="none" stroke="#dc2626" stroke-width="1.6" marker-end="url(#a)"/>
+    <text x="210" y="178" fill="#991b1b">reject-user → group-rejected</text>
+
+    <!-- disconnect -> grace -->
+    <path d="M690 264 L 690 376" fill="none" stroke="#dc2626" stroke-width="1.6" marker-end="url(#a)"/>
+    <text x="520" y="310" fill="#991b1b">socket disconnect</text>
+    <text x="520" y="326" fill="#64748b">removed from participants,</text>
+    <text x="520" y="342" fill="#64748b">peers NOT told yet</text>
+
+    <!-- reconnect -->
+    <path d="M740 376 L 740 268" fill="none" stroke="#16a34a" stroke-width="1.6" marker-end="url(#a)"/>
+    <text x="752" y="310" fill="#166534">join-group-room again within 12 s</text>
+    <text x="752" y="326" fill="#64748b">skips waiting room, keeps admin role;</text>
+    <text x="752" y="342" fill="#64748b">peers get group-peer-left(old id) + group-new-peer</text>
+
+    <!-- timeout -->
+    <path d="M606 424 C 300 440, 130 400, 105 268" fill="none" stroke="#dc2626" stroke-width="1.6" marker-end="url(#a)"/>
+    <text x="230" y="446" fill="#991b1b">timer fires → group-peer-left to room;</text>
+    <text x="230" y="462" fill="#64748b">if they were admin, participants[0] ← admin (group-you-are-admin)</text>
+
+    <!-- leave / kick -->
+    <path d="M606 250 C 450 290, 250 300, 150 266" fill="none" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#a)"/>
+    <text x="190" y="306" fill="#6d28d9">leave-group-room  or  kick-participant</text>
+    <text x="190" y="322" fill="#64748b">instant group-peer-left, timer cancelled</text>
+    <text x="190" y="338" fill="#64748b">(kick also sends group-kicked to the target)</text>
+  </g>
+
+  <text x="850" y="130" font-size="12" fill="#64748b">Room is deleted when</text>
+  <text x="850" y="146" font-size="12" fill="#64748b">participants[] becomes empty</text>
+  <text x="850" y="162" font-size="12" fill="#64748b">after a leave or a timer.</text>
+</svg>

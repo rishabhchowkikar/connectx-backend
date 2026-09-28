@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="560" rx="14" fill="#ffffff"/>
+  <text x="550" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">ConnectX — who talks to whom</text>
+
+  <!-- browsers -->
+  <g>
+    <rect x="40" y="80" width="250" height="150" rx="14" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
+    <text x="165" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#3730a3">Browser A</text>
+    <text x="165" y="132" text-anchor="middle" font-size="12" fill="#4338ca">Next.js frontend</text>
+    <rect x="60" y="148" width="210" height="28" rx="6" fill="#fff" stroke="#c7d2fe"/>
+    <text x="165" y="167" text-anchor="middle" font-size="12" fill="#334155">axios (withCredentials)</text>
+    <rect x="60" y="184" width="210" height="28" rx="6" fill="#fff" stroke="#c7d2fe"/>
+    <text x="165" y="203" text-anchor="middle" font-size="12" fill="#334155">socket.io-client + RTCPeerConnection</text>
+
+    <rect x="40" y="370" width="250" height="150" rx="14" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
+    <text x="165" y="400" text-anchor="middle" font-size="15" font-weight="700" fill="#3730a3">Browser B … N (≤ 10)</text>
+    <text x="165" y="422" text-anchor="middle" font-size="12" fill="#4338ca">Next.js frontend</text>
+    <rect x="60" y="438" width="210" height="28" rx="6" fill="#fff" stroke="#c7d2fe"/>
+    <text x="165" y="457" text-anchor="middle" font-size="12" fill="#334155">axios (withCredentials)</text>
+    <rect x="60" y="474" width="210" height="28" rx="6" fill="#fff" stroke="#c7d2fe"/>
+    <text x="165" y="493" text-anchor="middle" font-size="12" fill="#334155">socket.io-client + RTCPeerConnection</text>
+  </g>
+
+  <!-- backend -->
+  <rect x="440" y="80" width="330" height="440" rx="14" fill="#f8fafc" stroke="#0f172a" stroke-width="1.5"/>
+  <text x="605" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">connectx-backend (this repo)</text>
+  <text x="605" y="130" text-anchor="middle" font-size="12" fill="#475569">one Node process · http.createServer(app)</text>
+
+  <rect x="462" y="148" width="286" height="150" rx="10" fill="#fff" stroke="#cbd5e1"/>
+  <text x="478" y="172" font-size="13" font-weight="700" fill="#0f172a">Express 5</text>
+  <text x="478" y="194" font-size="12" fill="#475569">helmet → cookie-parser → cors → json</text>
+  <text x="478" y="216" font-size="12" fill="#334155" font-family="Consolas, monospace">/api/auth/register · login · logout</text>
+  <text x="478" y="234" font-size="12" fill="#334155" font-family="Consolas, monospace">/api/auth/google</text>
+  <text x="478" y="252" font-size="12" fill="#334155" font-family="Consolas, monospace">/api/auth/me   (protect middleware)</text>
+  <text x="478" y="270" font-size="12" fill="#334155" font-family="Consolas, monospace">/health</text>
+
+  <rect x="462" y="312" width="286" height="190" rx="10" fill="#fff" stroke="#cbd5e1"/>
+  <text x="478" y="336" font-size="13" font-weight="700" fill="#0f172a">Socket.io 4 — socketHandler.js</text>
+  <text x="478" y="358" font-size="12" fill="#475569">signaling relay only, never media</text>
+  <text x="478" y="382" font-size="12" fill="#334155" font-family="Consolas, monospace">rooms{} — 1-to-1 rooms, max 2</text>
+  <text x="478" y="400" font-size="12" fill="#334155" font-family="Consolas, monospace">groupRooms{} — admin, participants,</text>
+  <text x="570" y="418" font-size="12" fill="#334155" font-family="Consolas, monospace">waitingRoom (max 10)</text>
+  <text x="478" y="436" font-size="12" fill="#334155" font-family="Consolas, monospace">reconnectTimers{} — 12 s grace</text>
+  <text x="478" y="462" font-size="11" fill="#b45309">⚠ state is in memory — lost on restart,</text>
+  <text x="478" y="478" font-size="11" fill="#b45309">  and not shared across instances</text>
+
+  <!-- db -->
+  <path d="M870 160 a70 18 0 0 0 140 0 v120 a70 18 0 0 1 -140 0 z" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <ellipse cx="940" cy="160" rx="70" ry="18" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+  <text x="940" y="220" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">MongoDB</text>
+  <text x="940" y="240" text-anchor="middle" font-size="12" fill="#047857">users collection</text>
+
+  <rect x="860" y="360" width="160" height="70" rx="12" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="940" y="390" text-anchor="middle" font-size="13" font-weight="700" fill="#9a3412">Google</text>
+  <text x="940" y="410" text-anchor="middle" font-size="11" fill="#c2410c">verifyIdToken()</text>
+
+  <!-- arrows -->
+  <line x1="290" y1="162" x2="458" y2="210" stroke="#64748b" stroke-width="1.6" marker-end="url(#a)" marker-start="url(#a)"/>
+  <text x="300" y="150" font-size="11" fill="#475569">HTTPS + httpOnly cookie</text>
+  <line x1="290" y1="198" x2="458" y2="370" stroke="#64748b" stroke-width="1.6" marker-end="url(#a)" marker-start="url(#a)"/>
+  <text x="300" y="300" font-size="11" fill="#475569">WebSocket</text>
+  <text x="300" y="314" font-size="11" fill="#475569">(polling fallback)</text>
+  <line x1="290" y1="488" x2="458" y2="420" stroke="#64748b" stroke-width="1.6" marker-end="url(#a)" marker-start="url(#a)"/>
+  <line x1="290" y1="452" x2="458" y2="260" stroke="#64748b" stroke-width="1.6" marker-end="url(#a)" marker-start="url(#a)"/>
+
+  <line x1="748" y1="220" x2="866" y2="220" stroke="#64748b" stroke-width="1.6" marker-end="url(#a)"/>
+  <text x="772" y="210" font-size="11" fill="#475569">mongoose</text>
+  <line x1="748" y1="240" x2="866" y2="380" stroke="#64748b" stroke-width="1.6" marker-end="url(#a)"/>
+
+  <!-- p2p media -->
+  <path d="M120 232 C 70 290, 70 310, 120 368" fill="none" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#g)" marker-start="url(#g)"/>
+  <rect x="96" y="284" width="150" height="40" rx="8" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="171" y="301" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">WebRTC media P2P</text>
+  <text x="171" y="316" text-anchor="middle" font-size="10" fill="#15803d">STUN / TURN, not via server</text>
+</svg>
